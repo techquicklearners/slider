@@ -1,0 +1,105 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3rd JavaScript Project - Slider</title>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      .slider {
+        float: left;
+      }
+      .img {
+        width: 400px;
+        height: 300px;
+      }
+      .hide {
+        display: none;
+      }
+      .prev {
+        font-size: 60px;
+        width: 10%;
+        float: left;
+        padding-top: 120px;
+      }
+      .next {
+        font-size: 60px;
+        width: 10%;
+        float: left;
+        padding-top: 120px;
+        padding-left: 84px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="prev" onclick="prev()"><</div>
+      <div class="slider">
+        <img src="1.jpg" class="img current" />
+        <img src="2.jpg" class="img hide" />
+        <img src="3.jpg" class="img hide" />
+        <img src="4.jpg" class="img hide" />
+        <img src="5.jpg" class="img hide" />
+      </div>
+      <div class="next" onclick="next()">></div>
+    </div>
+    <script>
+      let intr;
+      function slider() {
+        intr = setInterval(function () {
+          let cur = document.querySelector(".current");
+          let next = cur.nextElementSibling;
+          if (next == null) {
+            next = document.querySelector(".slider").firstElementChild;
+          }
+          cur.classList.remove("current");
+          cur.classList.add("hide");
+          next.classList.add("current");
+          next.classList.remove("hide");
+        }, 2000);
+      }
+      slider();
+      function next() {
+        clearInterval(intr);
+        let cur = document.querySelector(".current");
+        let next = cur.nextElementSibling;
+        if (next == null) {
+          next = document.querySelector(".slider").firstElementChild;
+        }
+        cur.classList.remove("current");
+        cur.classList.add("hide");
+        next.classList.add("current");
+        next.classList.remove("hide");
+        slider();
+      }
+      function prev() {
+        clearInterval(intr);
+        let cur = document.querySelector(".current");
+        let prev = cur.previousElementSibling;
+        if (prev == null) {
+          prev = document.querySelector(".slider").lastElementChild;
+        }
+        cur.classList.remove("current");
+        cur.classList.add("hide");
+        prev.classList.add("current");
+        prev.classList.remove("hide");
+        slider();
+      }
+      document
+        .querySelector(".slider")
+        .addEventListener("mouseenter", function () {
+          clearInterval(intr);
+        });
+      document
+        .querySelector(".slider")
+        .addEventListener("mouseleave", function () {
+          slider();
+        });
+    </script>
+  </body>
+</html>
